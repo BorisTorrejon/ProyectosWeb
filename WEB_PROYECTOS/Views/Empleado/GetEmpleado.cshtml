@@ -1,0 +1,65 @@
+﻿@model ENTIDAD.EmpleadoCE
+
+@{
+    ViewBag.Title = "Detalle de Empleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h4>Detalle de Empleado</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Apellidos:
+        </dt>
+
+        <dd>
+            @Model.Apellidos
+        </dd>
+
+        <dt>
+            Nombres:
+        </dt>
+
+        <dd>
+            @Model.Nombres
+        </dd>
+
+        <dt>
+            Email:
+        </dt>
+
+        <dd>
+            @Model.Email
+        </dd>
+
+        <dt>
+            Direccion:
+        </dt>
+
+        <dd>
+            @Model.Direccion
+        </dd>
+
+        <dt>
+            Celular:
+        </dt>
+
+        <dd>
+            @Model.Celular
+        </dd>
+
+        <dt>
+            Departamento:
+        </dt>
+
+        <dd>
+            @Model.NombreDepartamento
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a class="btn btn-primary" href="@Url.Action("Index","Empleado")">Regresar</a>
+    <a class="btn btn-primary" href="@Url.Action("Editar","Empleado",new {id=Model.EmpleadoID})">Editar</a>
+</p>

@@ -1,0 +1,127 @@
+﻿@model ENTIDAD.EmpleadoCE
+
+@{
+    ViewBag.Title = "Crear Empleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form action="@Url.Action("Editar","Empleado")" method="post" id="frmEmpleado">
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Crear Nuevo Empleado</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.EmpleadoID)
+        <div class="form-group">
+            <label class="control-label col-md-2">Apellidos</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="Apellidos" name="Apellidos" value="@Model.Apellidos" placeholder="Apellidos del Empleado" />
+                @Html.ValidationMessageFor(model => model.Apellidos, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Nombres</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="Nombres" name="Nombres" value="@Model.Nombres" placeholder="Nombres del Empleado" />
+                @Html.ValidationMessageFor(model => model.Nombres, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Email</label>
+            <div class="col-md-10">
+                <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" placeholder="my_email@addres.com" />
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Direccion</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="Direccion" name="Direccion" value="@Model.Direccion" placeholder="Direccion" />
+                @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Celular</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="Celular" name="Celular" value="@Model.Celular" placeholder="Nro de Celular" />
+                @Html.ValidationMessageFor(model => model.Celular, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Departamentos</label>
+            <div class="col-md-10">
+                <select class="form-control" id="DepartamentoID" name="DepartamentoID">
+                    <option value="">Seleccione...</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a class="btn btn-primary" href="@Url.Action("Index","Empleado")">Regresar</a>
+                <input type="submit" value="Editar Empleado" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        getDepartamento(@Model.DepartamentoID);
+
+        $("#frmEmpleado").submit(function (event) {
+            event.preventDefault();//previene que la pagina se recargue
+
+            var apellidos = $("#Apellidos").val();
+            var nombres = $("#Nombres").val();
+            var email = $("#Email").val();
+            var celular = $("#Celular").val();
+            var deptoID = $("#DepartamentoID").val();
+
+            if (apellidos == "" || nombres == "") {
+                alert("Debe ingresar Apellido y Nombre");
+                return;
+            }
+            if (email == "") {
+                alert("Debe ingresar un email");
+                return;
+            }
+            if (celular == "") {
+                alert("Debe ingresar un número de celular");
+                return;
+            }
+            if (deptoID == "") {
+                alert("Debe seleccionar un Departamento!!!");
+                return;
+            }
+            var post_url = $(this).attr("action");//ejecuta la accion
+            var request_method = $(this).attr("method");//ejecuta el metodo GET o POST
+            var form_data = $(this).serializeArray();//Encode form elements for submission
+            //console.log(form_data);
+            LoadingOverlayShow("#frmEmpleado");
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (response) {
+                console.log(response);
+                LoadingOverlayHide("#frmEmpleado");
+                if (response.ok) {
+                    /*alert("Proyeto creado correctamente");*/
+                    window.location = response.toRedirect;
+                }
+                else {
+                    alert(response.msg);
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                LoadingOverlayHide("#frmEmpleado");
+            })
+        })
+    </script>
+}

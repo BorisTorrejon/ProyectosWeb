@@ -1,0 +1,90 @@
+﻿@model IEnumerable<ENTIDAD.Departamento>
+
+@{
+    ViewBag.Title = "Listado de Departamentos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Departamentos</h2>
+
+<p>
+    <a class="btn btn-primary" href="@Url.Action("Crear","Departamento")"><i class="glyphicon glyphicon-plus"></i> Crear Nuevo</a>
+</p>
+<table class="table" id="tableDepartamento">
+    <thead>
+        <tr>
+            <th>
+                Nombre de Departamento
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreDepartamento)
+                </td>
+                <td class="text-right">
+                    <a class="btn btn-primary btn-xs" title="Editar" href="@Url.Action("Editar","Departamento",new {id=item.DepartamentoID})">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </a>
+                    <a class="btn btn-info btn-xs" title="Detalle" href="@Url.Action("GetDepartamento","Departamento",new {id=item.DepartamentoID})">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </a>
+                    <a class="btn btn-danger btn-xs" title="Eliminar" onclick="EliminarProyecto(@item.DepartamentoID,'@item.NombreDepartamento')">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+@section scripts{
+    <script>
+        $('#tableDepartamento').DataTable({
+            "pageLength": 5,
+            lengthMenu:[5,10,15,20],
+            "language": {
+                "url":"//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            }
+        });
+        function EliminarProyecto(idDepartamento, nombreDepartamento) {
+            $.confirm({
+                title: 'Eliminar Departamento',
+                content: 'Estas seguro que quieres eliminar ' + nombreDepartamento + '?',
+                buttons: {
+                    cancel: {
+                        btnClass: 'btn btn-primary',
+                    },
+                    confirm: {
+                        btnClass: 'btn btn-danger',
+                        action: function () {
+                            LoadingOverlayShow("#tableDepartamento");
+                            $.ajax({
+                                url: "/Departamento/Eliminar",
+                                type: "post",
+                                data: { id: idDepartamento }
+                            }).done(function (response) {
+                                console.log(response);
+                                LoadingOverlayHide("#tableDepartamento");
+                                if (response.ok) {
+                                    alert("Departamento eliminado correctamente");
+                                    window.location = response.toRedirect;
+                                }
+                                else {
+                                    alert(response.msg);
+                                }
+                            }).fail(function (jqXHR, textStatus, errorThrown) {
+                                LoadingOverlayHide("#tableDepartamento");
+                            })
+                        },
+                    },
+                }
+            });
+        }
+    </script>
+}

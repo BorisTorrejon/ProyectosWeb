@@ -1,0 +1,100 @@
+﻿@model IEnumerable<ENTIDAD.Proyecto>
+
+@{
+    ViewBag.Title = "Proyecto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Proyectos</h2>
+
+<p>
+    <a class="btn btn-primary" href="@Url.Action("Crear","Proyecto")"><i class="glyphicon glyphicon-plus"></i> Crear Nuevo</a>
+</p>
+<table class="table" id="tableProyecto">
+    <thead>
+        <tr>
+            <th>
+                Nombre de Proyecto
+            </th>
+            <th>
+                Fecha de Inicio
+            </th>
+            <th>
+                Fecha de Fin
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreProyecto)
+                </td>
+                <td>
+                    @item.FechaInicio.ToShortDateString()
+                </td>
+                <td>
+                    @item.FechaFin.ToShortDateString()
+                </td>
+                <td class="text-right">
+                    <a class="btn btn-primary btn-xs" title="Editar" href="@Url.Action("Editar","Proyecto",new {id=item.ProyectoID})">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </a>
+                    <a class="btn btn-info btn-xs" title="Detalle" href="@Url.Action("GetProyecto","Proyecto",new {id=item.ProyectoID})">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </a>
+                    <a class="btn btn-danger btn-xs" title="Eliminar" onclick="EliminarProyecto(@item.ProyectoID, '@item.NombreProyecto')">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts{
+    <script>
+        $('#tableProyecto').DataTable({
+            "pageLength": 5,
+            lengthMenu: [5, 10, 15, 20],
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            }
+        });
+        function EliminarProyecto(idProyecto, nombreProyecto) {
+            $.confirm({
+                title: 'Eliminar Proyecto',
+                content: 'Estas seguro que quieres eliminar ' + nombreProyecto + '?',
+                buttons: {
+                    cancel: {
+                        btnClass: 'btn btn-primary',
+                    },
+                    confirm: {
+                        btnClass: 'btn btn-danger',
+                        action: function () {
+                            LoadingOverlayShow("#tableProyecto");
+                            $.ajax({
+                                url: "/Proyecto/Eliminar",
+                                type: "post",
+                                data: { id : idProyecto}
+                            }).done(function (response) {
+                                console.log(response);
+                                LoadingOverlayHide("#tableProyecto");
+                                if (response.ok) {
+                                    alert("Proyeto eliminado correctamente");
+                                    window.location = response.toRedirect;
+                                }
+                                else {
+                                    alert(response.msg);
+                                }
+                            }).fail(function (jqXHR, textStatus, errorThrown) {
+                                LoadingOverlayHide("#tableProyecto");
+                            })
+                        },
+                    },
+                }
+            });
+        }
+    </script>
+}

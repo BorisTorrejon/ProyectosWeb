@@ -1,0 +1,136 @@
+﻿@model IEnumerable<ENTIDAD.ProyectoEmpleadoCE>
+@{
+    ViewBag.Title = "Asignar Proyecto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Asignar Proyecto</h2>
+<hr />
+<div class="form-horizontal" id="main">
+    <div class="form-group" id="divAsignar">
+        <label class="control-label col-md-2">Proyecto</label>
+        <div class="col-md-4">
+            <select class="form-control" id="ProyectoID" name="ProyectoID">
+                <option value="">Seleccione...</option>
+            </select>
+        </div>
+        <label class="control-label col-md-2">Empleado</label>
+        <div class="col-md-4">
+            <select class="form-control" id="EmpleadoID" name="EmpleadoID">
+                <option value="">Seleccione...</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-4 col-md-4">
+            <button type="button" class="btn btn-primary btn-block" id="#asignarProyecto" onclick="asignarProyecto()"><ic class="glyphicon glyphicon-hand-up"></ic>Asignar</button>
+        </div>
+    </div>
+    <hr />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-8">
+            <table class="table table-bordered table-condensed table-striped" id="ProyectoEmpleado">
+                <thead>
+                    <tr>
+                        <th class="text-center">Proyecto</th>
+                        <th class="text-center">Empleado</th>
+                        <th class="text-center">Fecha Alta</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.NombreProyecto</td>
+                            <td>@item.NombreCompleto</td>
+                            <td class="text-center">@item.FechaAlta.ToString("dd-MM-yyyy")</td>
+                            <td class="text-center">
+                                <a href="#" onclick="EliminarProyectoEmpleado(
+                                { proyectoID: '@item.ProyectoID',
+                                  nombreProyecto: '@item.NombreProyecto',
+                                  empleadoID: '@item.EmpleadoID',
+                                  nombreEmpleado:'@item.NombreCompleto',
+                                })" class="btn btn-danger btn-xs">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        getProyecto();
+        getEmpleado();
+        function asignarProyecto() {
+            var proyectoID = $("#ProyectoID").val();
+            var empleadoID = $("#EmpleadoID").val();
+            if (proyectoID == "") {
+                alert("Debe seleccionar un Proyecto");
+                return;
+            }
+            if (empleadoID == "") {
+                alert("Debe seleccionar un Empleado");
+                return;
+            }
+            LoadingOverlayShow("#main");
+            $.ajax({
+                url: "/Proyecto/AsignarProyecto",
+                type: "post",
+                data: { proyectoID: proyectoID, empleadoID: empleadoID }
+            }).done(function (response) {
+                console.log(response);
+                LoadingOverlayHide("#main");
+                if (response.ok) {
+                    alert("Empleado asignado al Proyecto");
+                    window.location = response.toRedirect;
+                }
+                else {
+                    alert(response.msg);
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                LoadingOverlayHide("#main");
+            })
+        };
+        function EliminarProyectoEmpleado(obj) {
+            $.confirm({
+                title: 'Eliminar Empleado',
+                content: 'Estas seguro que quieres eliminar ' + obj.nombreEmpleado + ' del Proyecto ' + obj.nombreProyecto + '?',
+                buttons: {
+                    cancel: {
+                        btnClass: 'btn btn-primary',
+                    },
+                    confirm: {
+                        btnClass: 'btn btn-danger',
+                        action: function () {
+                            LoadingOverlayShow("#main");
+                            $.ajax({
+                                url: "/Proyecto/EliminarProyectoEmpleado",
+                                type: "post",
+                                data: { proyectoID:obj.proyectoID,empleadoID:obj.empleadoID }
+                            }).done(function (response) {
+                                console.log(response);
+                                LoadingOverlayHide("#main");
+                                if (response.ok) {
+                                    alert("El empleado fue eliminado correctamente del proyecto");
+                                    window.location = response.toRedirect;
+                                }
+                                else {
+                                    alert(response.msg);
+                                }
+                            }).fail(function (jqXHR, textStatus, errorThrown) {
+                                LoadingOverlayHide("#main");
+                            })
+                        },
+                    },
+                }
+            });
+        };
+    </script>
+}

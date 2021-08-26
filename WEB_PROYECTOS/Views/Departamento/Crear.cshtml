@@ -1,0 +1,68 @@
+﻿@model ENTIDAD.Departamento
+
+@{
+    ViewBag.Title = "Crear Departamento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--Estos datos ya vienen implicitos en BeginForm()-->
+<form id="frmDepartamento" action="@Url.Action("Crear","Departamento")" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Crear Departamento</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label class="control-label col-md-2">Departamento de:</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="NombreDepartamento" name="NombreDepartamento" placeholder="Nombre del Departamento" />
+                @Html.ValidationMessageFor(model => model.NombreDepartamento, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a href="@Url.Action("Index","Departamento")" class="btn btn-primary">Regresar</a>
+                <input type="submit" value="Crear" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $("#frmDepartamento").submit(function (event) {
+            event.preventDefault();//previene que la pagina se recargue
+            var nombre = $("#NombreDepartamento").val();
+            if ($.trim(nombre) == "") {
+                alert("Debe ingresar el Nombre del Proyecto!!!");
+                return;
+            }
+
+
+            var post_url = $(this).attr("action");//ejecuta la accion
+            var request_method = $(this).attr("method");//ejecuta el metodo GET o POST
+            var form_data = $(this).serializeArray();//Encode form elements for submission
+            //console.log(form_data);
+            LoadingOverlayShow("#frmDepartamento");
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (response) {
+                console.log(response);
+                LoadingOverlayHide("#frmDepartamento");
+                if (response.ok) {
+                 /*alert("Proyeto creado correctamente");*/
+                    window.location = response.toRedirect;
+                }
+                else {
+                    alert(response.msg);
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                LoadingOverlayHide("#frmDepartamento");
+            })
+        })
+    </script>
+}

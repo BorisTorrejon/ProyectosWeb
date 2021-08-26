@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Inicio";
+}
+
+<div class="jumbotron">
+    <h1>Proyecto Web</h1>
+    <p class="lead">Proyecto Web, es una aplicacion web de gestion de proyectos con roles de usuario.</p>
+    <div class="collapse" id="leermas">
+        <p class="lead">
+            Las tecnologias usadas para el desarrollo de esta aplicacion Web son ASP.NET C#, MVC, Entity Framework, Ajax y SQL.
+            Se implemento una metodología de desarrollo en capas.
+        </p>
+    </div>
+    <p><a href="#leermas" class="btn btn-primary btn-lg" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample">Leer mas... &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Base de Datos</h2>
+        <p>
+            Se desarrollo primero la base de datos en Microsoft SQL Server,
+            creando las tablas Departamento, Empleado, Proyecto y ProyectoEmpleado.
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Control de Eventos</h2>
+        <p>Se implemento control de evento con Ajax del lado del cliente, tambien se uso control de eventos del lado del servidor en el controlador.</p>
+    </div>
+    <div class="col-md-4">
+        <h2>MVC en Capas</h2>
+        <p>Se desarrollo MVC en capas, utilizando 4 capas (Entidad, Datos, Negocio y Cliente). Se utilizó autenticación y autorización con identity sobre ASP.NET </p>
+    </div>
+</div>

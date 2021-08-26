@@ -1,0 +1,25 @@
+﻿@model ENTIDAD.Departamento
+
+@{
+    ViewBag.Title = "Departamento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h4>Detalle de Departamento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Departamento de:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreDepartamento)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a href="@Url.Action("Index","Departamento")" class="btn btn-primary">Regresar</a>
+    <a href="@Url.Action("Editar","Departamento",new { id = Model.DepartamentoID })" class="btn btn-primary">Editar</a>
+</p>
