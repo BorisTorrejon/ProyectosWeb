@@ -1,0 +1,13 @@
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\DATOS\bin\Debug\DATOS.dll.config
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\DATOS\bin\Debug\DATOS.dll
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\DATOS\bin\Debug\DATOS.pdb
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\DATOS\bin\Debug\ENTIDAD.dll
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\DATOS\bin\Debug\EntityFramework.dll
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\DATOS\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\DATOS\bin\Debug\ENTIDAD.pdb
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\DATOS\bin\Debug\EntityFramework.xml
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\DATOS\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\DATOS\obj\Debug\DATOS.csproj.AssemblyReference.cache
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\DATOS\obj\Debug\DATOS.csproj.CoreCompileInputs.cache
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\DATOS\obj\Debug\DATOS.dll
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\DATOS\obj\Debug\DATOS.pdb

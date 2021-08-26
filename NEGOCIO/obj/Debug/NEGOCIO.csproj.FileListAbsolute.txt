@@ -1,0 +1,14 @@
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\NEGOCIO\bin\Debug\NEGOCIO.dll
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\NEGOCIO\bin\Debug\NEGOCIO.pdb
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\NEGOCIO\bin\Debug\DATOS.dll
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\NEGOCIO\bin\Debug\ENTIDAD.dll
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\NEGOCIO\bin\Debug\EntityFramework.dll
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\NEGOCIO\bin\Debug\DATOS.pdb
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\NEGOCIO\bin\Debug\DATOS.dll.config
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\NEGOCIO\bin\Debug\ENTIDAD.pdb
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\NEGOCIO\bin\Debug\EntityFramework.xml
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\NEGOCIO\obj\Debug\NEGOCIO.csproj.AssemblyReference.cache
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\NEGOCIO\obj\Debug\NEGOCIO.csproj.CoreCompileInputs.cache
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\NEGOCIO\obj\Debug\NEGOCIO.dll
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\NEGOCIO\obj\Debug\NEGOCIO.pdb
+C:\Users\b_e_t\Documents\00PROJECTS\00WEBS\NEGOCIO\obj\Debug\NEGOCIO.csproj.CopyComplete
